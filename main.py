@@ -82,10 +82,10 @@ def get_ability_values_helper(itr, main_div) -> list:
 
         # print(str(main_div[curr_itr].text))
         try:
-            if "Cooldown Time" in str(main_div[curr_itr+1].text) or "Additional Information" in str(main_div[curr_itr+1].text) or curr_itr == len(main_div):     
+            if curr_itr == len(main_div) or "\n" in  str(main_div[curr_itr+1].text) or "Cooldown Time" in str(main_div[curr_itr+1].text) or "Additional Information" in str(main_div[curr_itr+1].text):     
                 break
-        except Exception as e:
-            print(main_div[curr_itr])
+        except IndexError as e:
+            print(main_div)
             sys.exit()
 
     return [ret, curr_itr]  
@@ -155,6 +155,7 @@ def populate_table(table_elements, cur):
         # This section gets me the ability and hero names: ---------------------
         names = table_elements[i].find_all('a')
         ability_name = names[0].text
+        print(ability_name)
         hero_name = names[1]["alt"]
         if hero_name == "":
             continue
